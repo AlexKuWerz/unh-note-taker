@@ -15,6 +15,18 @@ const writeFile = promisify(fs.writeFile);
 
 const jsonFile = 'db/db.json';
 
+const generateId = (size) => {
+    const nums = Array.from(Array(10).keys());
+    const alphabets = Array.from({ length: 26 }, (e, i) =>
+        String.fromCharCode("a".charCodeAt(0) + i)
+    );
+    const chars = [...nums, ...alphabets];
+
+    const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+
+    return Array.from(Array(size), () => chars[getRandomInt(chars.length)]).join('');
+}
+
 const getNotes = async (filepath) => {
     const content = await readFile(path.join(__dirname, filepath), 'utf8');
 
@@ -23,6 +35,8 @@ const getNotes = async (filepath) => {
 
 const saveNote = async (filepath, content) => {
     let currentContent = await getNotes(filepath);
+
+    content.id = generateId(5);
 
     currentContent.push(content);
 

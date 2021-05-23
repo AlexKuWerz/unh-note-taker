@@ -22,20 +22,6 @@ const hide = (elem) => {
     elem.style.display = 'none';
 };
 
-const getRandomInt = (max) => {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
-const generateId = (size) => {
-    const nums = Array.from(Array(10).keys());
-    const alphabets = Array.from({ length: 26 }, (e, i) =>
-        String.fromCharCode("a".charCodeAt(0) + i)
-    );
-    const chars = [...nums, ...alphabets];
-
-    return Array.from(Array(size), () => chars[getRandomInt(chars.length)]).join('');
-}
-
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
@@ -84,7 +70,6 @@ const renderActiveNote = () => {
 
 const handleNoteSave = () => {
     const newNote = {
-        id: generateId(5),
         title: noteTitle.value,
         text: noteText.value,
     };
